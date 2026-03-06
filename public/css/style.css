@@ -1,0 +1,719 @@
+/* 1. VARIABILI CSS — colori ufficiali NBA */
+:root {
+    --nba-blue:       #1D428A;
+    --nba-blue-dark:  #152f61;
+    --nba-red:        #C8102E;
+    --nba-red-dark:   #9e0c24;
+    --nba-white:      #FFFFFF;
+    --dark-bg:        #0a0a0f;
+    --dark-card:      #12121a;
+    --dark-border:    #1e1e2e;
+    --text-primary:   #f0f0f8;
+    --text-secondary: #8888aa;
+}
+
+
+/* 2. OVERRIDE BOOTSTRAP */
+
+/* Variabili interne di Bootstrap 5.3 riscritte col nostro tema */
+[data-bs-theme="dark"] {
+    --bs-body-bg:          var(--dark-bg);
+    --bs-body-color:       var(--text-primary);
+    --bs-card-bg:          var(--dark-card);
+    --bs-border-color:     var(--dark-border);
+    --bs-link-color:       var(--nba-blue);
+    --bs-link-hover-color: #3a6fd8;
+}
+
+
+/* 3. TIPOGRAFIA E LINK GLOBALI */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--dark-bg) !important;
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+h1, h2, h3, h4, .nba-font {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.03em;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+
+/* 4. COMPONENTI GLOBALI */
+
+/* Titolo sezione con sottolineatura rossa */
+.section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--nba-red);
+    border-radius: 2px;
+}
+
+/* Badge ruolo giocatore */
+.badge-ruolo {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--nba-blue);
+    border: 1px solid var(--nba-blue);
+}
+
+/* btn-primary → Blu NBA (Bootstrap usa #0d6efd di default) */
+.btn-primary {
+    background-color: var(--nba-blue) !important;
+    border-color:     var(--nba-blue) !important;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--nba-blue-dark) !important;
+    border-color:     var(--nba-blue-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(29, 66, 138, 0.4) !important;
+}
+
+/* btn-danger → Rosso NBA */
+.btn-danger {
+    background-color: var(--nba-red) !important;
+    border-color:     var(--nba-red) !important;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.btn-danger:hover {
+    background-color: var(--nba-red-dark) !important;
+    border-color:     var(--nba-red-dark) !important;
+}
+
+
+/* 5. NAVBAR */
+.navbar {
+    background: rgba(10, 10, 15, 0.9) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    transition: background 0.3s;
+}
+
+/* Classe aggiunta via JS quando si scrolla */
+.navbar.scrolled {
+    background: rgba(10, 10, 15, 0.98) !important;
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary) !important;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 0.6rem !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+}
+
+/* Sottolineatura rossa sul link attivo */
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 2px;
+    background: var(--nba-red);
+    border-radius: 2px;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+
+/* 6. HEADER HERO (components/header.blade.php) */
+#headerBg {
+    /* La transizione serve per l'effetto parallax JS */
+    transition: transform 8s ease;
+}
+
+
+/* 7. PLAYER CARD */
+.player-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(29, 66, 138, 0.4) !important;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s !important;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.player-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--nba-red) !important;
+    box-shadow: 0 20px 50px rgba(200, 16, 46, 0.2) !important;
+    color: inherit;
+}
+
+.card-img-inner {
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.player-card:hover .card-img-inner {
+    transform: scale(1.07);
+    filter: brightness(0.85);
+}
+
+
+/* 8. FORM GLOBALI */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: #fff !important;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--nba-blue) !important;
+    box-shadow: 0 0 0 0.2rem rgba(29, 66, 138, 0.3) !important;
+    color: #fff !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+
+/* 9. BARRE STATISTICHE (pagina show.blade.php) */
+.stat-bar,
+.stat-bar-container {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--dark-border);
+    overflow: hidden;
+}
+
+.stat-bar-fill {
+    height: 100%;
+    width: 0%;                      /* Parte da 0, JS la porta al valore reale */
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--nba-blue), #3a6fd8);
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Variante rossa */
+.stat-bar-fill.red {
+    background: linear-gradient(to right, var(--nba-red), #e84060);
+}
+
+
+/* 10. PAGINA GIOCATORI — barra di ricerca */
+.search-bar {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar:focus {
+    border-color: var(--nba-blue);
+    box-shadow: 0 0 0 3px rgba(29, 66, 138, 0.2);
+}
+
+.search-bar::placeholder {
+    color: var(--text-secondary);
+}
+
+
+/* 11. PAGINA SHOW — scheda tecnica giocatore */
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--dark-border);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+
+/* 12. BLOG */
+.article-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(29, 66, 138, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.article-card:hover {
+    border-color: var(--nba-red);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(200, 16, 46, 0.15);
+}
+
+.article-img-wrapper {
+    overflow: hidden;
+}
+
+.article-img {
+    width: 100%;
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease;
+}
+
+.article-card:hover .article-img {
+    transform: scale(1.04);
+}
+
+
+/* FOOTER */
+
+/* Campi form nel footer (override più specifico) */
+.footer-form .form-control {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: #fff !important;
+}
+
+.footer-form .form-control:focus {
+    background-color: rgba(255, 255, 255, 0.09) !important;
+    border-color: var(--nba-blue) !important;
+    box-shadow: 0 0 0 0.2rem rgba(29, 66, 138, 0.35) !important;
+    color: #fff !important;
+}
+
+.footer-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.footer-form .form-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0.35rem;
+}
+
+.footer-form .invalid-feedback {
+    color: #ff6b7a;
+    font-size: 0.78rem;
+}
+
+.footer-form .form-control.is-invalid {
+    border-color: var(--nba-red) !important;
+}
+
+/* Link nel footer */
+.footer-link {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.footer-link:hover {
+    color: #fff;
+}
+
+/* Popup di successo (posizione fixed in basso a destra) */
+#successPopup {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    background: var(--nba-blue);
+    border: 1px solid var(--nba-red);
+    border-radius: 12px;
+    padding: 1.25rem 1.75rem;
+    max-width: 340px;
+    min-width: 280px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* PAGINA 404 */
+
+.bg-court {
+    position: fixed; inset: 0; z-index: 0;
+}
+.bg-court::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(29,66,138,0.12);
+}
+.bg-court::after {
+    content: '';
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 100%;
+    background: rgba(29,66,138,0.08);
+}
+.bg-glow {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(200,16,46,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 80% at 20% 80%, rgba(29,66,138,0.08) 0%, transparent 60%);
+}
+.error-nav {
+    position: relative; z-index: 10;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.error-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem; font-weight: 900;
+    text-decoration: none; color: #fff;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.error-logo span {
+    background: var(--nba-red); color: #fff;
+    padding: 0.1rem 0.5rem; border-radius: 4px; line-height: 1;
+}
+.error-main {
+    position: relative; z-index: 1; flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 1.5rem; text-align: center;
+}
+.error-content { max-width: 620px; }
+.error-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(8rem, 22vw, 16rem);
+    font-weight: 900; line-height: 0.9;
+    background: linear-gradient(135deg, var(--nba-blue) 0%, #3a6fd8 35%, var(--nba-red) 65%, #e84060 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: pulse404 3s ease-in-out infinite;
+}
+@keyframes pulse404 {
+    0%,100% { filter: drop-shadow(0 0 40px rgba(200,16,46,0.15)); }
+    50%      { filter: drop-shadow(0 0 80px rgba(200,16,46,0.35)); }
+}
+.error-ball {
+    font-size: 3rem; display: block; margin-bottom: 1.5rem;
+    animation: bounce404 1.4s cubic-bezier(.28,.84,.42,1) infinite;
+}
+@keyframes bounce404 {
+    0%,100% { transform: translateY(0); }
+    40%      { transform: translateY(-24px); }
+    60%      { transform: translateY(-12px); }
+}
+.error-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.8rem,5vw,2.8rem); font-weight: 800;
+    text-transform: uppercase; margin: 1rem 0;
+}
+.error-title span { position: relative; display: inline-block; }
+.error-title span::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; width: 100%; height: 3px;
+    background: var(--nba-red); border-radius: 2px;
+}
+.error-desc {
+    color: var(--text-secondary); font-size: 1rem;
+    line-height: 1.7; margin-bottom: 2.5rem;
+    max-width: 440px; margin-left: auto; margin-right: auto;
+}
+.error-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+.error-btn-primary {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .85rem 2rem; background: var(--nba-blue); color: #fff;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem;
+    font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    border-radius: 6px; text-decoration: none; transition: all .2s;
+}
+.error-btn-primary:hover { background: #152f61; transform: translateY(-2px); color: #fff; }
+.error-suggestions { padding-top: 2rem; border-top: 1px solid var(--dark-border); }
+.error-suggestions p {
+    font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+.error-links { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+.error-link-card {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .6rem 1.2rem; background: var(--dark-card);
+    border: 1px solid var(--dark-border); border-radius: 8px;
+    text-decoration: none; color: var(--text-secondary);
+    font-size: .9rem; transition: all .2s;
+}
+.error-link-card:hover { border-color: var(--nba-blue); color: #fff; background: rgba(29,66,138,.12); transform: translateY(-2px); }
+.error-footer {
+    position: relative; z-index: 1; text-align: center;
+    padding: 1.5rem; border-top: 1px solid rgba(255,255,255,.04);
+    color: rgba(255,255,255,.2); font-size: .78rem;
+}
+.error-footer strong { color: var(--nba-red); }
+
+
+/* ─────────────────────────────────────────────────────────────
+   14. RESPONSIVE — mobile first
+   Breakpoints:
+     xs  < 576px  → smartphone piccoli
+     sm  ≥ 576px  → smartphone grandi
+     md  ≥ 768px  → tablet
+     lg  ≥ 992px  → desktop
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Utility responsive generali ── */
+@media (max-width: 767px) {
+
+    /* Padding sezioni ridotto su mobile */
+    section { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+
+    /* section-title più piccolo */
+    .section-title { font-size: 1.8rem; }
+
+    /* ── HOME: griglia statistiche rapide (4 col → 2 col) ── */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── HOME: partite — layout card compatto ── */
+    .partita-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+        text-align: center !important;
+    }
+    .partita-row .text-end { text-align: center !important; }
+
+    /* ── HOME: top giocatori (3 col → 1 col) ── */
+    .top-giocatori-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── GIOCATORI: griglia card (4 col → 2 col) ── */
+    .giocatori-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+
+    /* ── SHOW: hero player — immagine e info in colonna ── */
+    .show-hero-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .show-stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── BLOG: grid articoli (3 col → 1 col) ── */
+    .blog-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── FOOTER: colonne (4 col → 2 col) ── */
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 2rem !important;
+    }
+
+    /* ── Popup successo — full width su mobile ── */
+    #successPopup {
+        right: 1rem;
+        left: 1rem;
+        bottom: 1rem;
+        max-width: none;
+    }
+
+    /* ── CTA buttons — full width su mobile ── */
+    .cta-btns { flex-direction: column !important; }
+    .cta-btns .btn { width: 100% !important; text-align: center; }
+}
+
+@media (max-width: 575px) {
+
+    /* Statistiche rapide: 2 col → ancora 2 col ma più strette */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .stats-grid > div { padding: 1.25rem 0.75rem !important; }
+    .stats-grid .stat-num { font-size: 2rem !important; }
+
+    /* Giocatori: 2 col su schermi molto piccoli */
+    .giocatori-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Show: stats in 3 col (PPG/RPG/APG/etc) */
+    .show-stats-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    /* Hero partite — punteggio grande su mobile */
+    .partita-score { font-size: 1.5rem !important; }
+
+    /* Titoli hero */
+    .hero-title { font-size: clamp(2.5rem, 12vw, 5rem) !important; }
+}
+
+/* ── Tablet (768px–991px) ── */
+@media (min-width: 768px) and (max-width: 991px) {
+    .giocatori-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .top-giocatori-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* ── Show page hero: su mobile immagine sopra, info sotto ── */
+@media (max-width: 767px) {
+    .show-hero-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .show-hero-grid > *:first-child {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    /* Stats nel show: 3 col piccole */
+    .show-stats-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Stats num più piccolo */
+    .show-stats-grid .stat-val {
+        font-size: 1.6rem !important;
+    }
+
+    /* Info grid nel show: 1 col su mobile */
+    .show-info-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Padding container ridotto */
+    .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+    /* Titoli hero più piccoli */
+    h1.display-1, h1.display-2 { font-size: 3rem !important; }
+
+    /* Partite: riga con squadre e punteggio */
+    .partita-card {
+        grid-template-columns: 1fr auto 1fr !important;
+        gap: 0.5rem !important;
+        padding: 0.85rem 0.75rem !important;
+    }
+    .partita-data { display: none !important; }
+
+    /* Nasconde separatore desktop */
+    .desktop-separator { display: none !important; }
+}
+
+/* ── Immagine hero su mobile (show page) ── */
+@media (max-width: 575px) {
+    .show-stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Blog card immagine meno alta */
+    .article-img { height: 160px !important; }
+}
+
+/* ── Blog articolo in evidenza: mobile 1 colonna ── */
+@media (max-width: 767px) {
+    .article-featured {
+        grid-template-columns: 1fr !important;
+        min-height: auto !important;
+    }
+    .article-featured .article-img-wrapper {
+        height: 220px;
+    }
+    .article-featured .article-img {
+        height: 220px !important;
+    }
+    .article-featured-text {
+        padding: 1.5rem !important;
+    }
+    .article-featured-text h3 {
+        font-size: 1.6rem !important;
+    }
+
+    /* Top giocatori home: 1 colonna */
+    .top-giocatori-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    /* Previeni overflow orizzontale solo sul container, NON sul body */
+    .container { max-width: 100%; }
+}

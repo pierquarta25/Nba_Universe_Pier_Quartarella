@@ -1,0 +1,7 @@
+.bg-linear{
+    background: linear-gradient(45deg, red, green);
+}
+
+.text-custom{
+     font-family: "Fraunces", serif;
+}

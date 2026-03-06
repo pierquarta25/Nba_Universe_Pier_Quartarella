@@ -1,0 +1,23 @@
+{{-- Badge: dati live da API o statici 
+                    @if($daApi)
+                        <span style="display:inline-flex; align-items:center; gap:0.4rem;
+                            background:rgba(29,66,138,0.15); border:1px solid rgba(29,66,138,0.3);
+                            color:#6fa3f7; font-size:0.72rem; font-weight:700;
+                            letter-spacing:0.08em; text-transform:uppercase;
+                            padding:0.25rem 0.8rem; border-radius:999px;">
+                            <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;"></span>
+                            Dati reali · API
+                        </span>
+                    @else
+                        <span style="display:inline-flex; align-items:center; gap:0.4rem;
+                            background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+                            color:var(--text-secondary); font-size:0.72rem; font-weight:700;
+                            letter-spacing:0.08em; text-transform:uppercase;
+                            padding:0.25rem 0.8rem; border-radius:999px;">
+                            📋 Dati statici · Esegui <code style="font-size:0.7rem;">php artisan sync:giocatori</code>
+                        </span>
+                    @endif
+                                                                                                                                    --}}
+
+ tutto questo codice serve per prendere i datii API per avere tutti i giocatori nba che sono tipo 500 ma crasha perche l'Api e del 2024-25 invece le img sono 2025-2027.
+                                                                                                                                    
